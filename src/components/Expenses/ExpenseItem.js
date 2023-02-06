@@ -9,6 +9,7 @@ function ExpenseItem(props) {
 	// 	setTitle('Updated')
 	// }
 	
+	
 	return (
 		<Card className="expense-item ">
            <ExpenseDate date = {props.date}/> 
