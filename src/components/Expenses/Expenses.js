@@ -21,23 +21,38 @@ const Expenses = (props) => {
 		}
 	);
 
-	return (
-		<Card className="expenses">
+	let expenseContent = <p>No expense found.</p> //making variables for conditional content and pointing only at variable name dynamically.
+	if (expenseContent > 0){
+		expenseContent = filteredExpenses.map((expense) => (
+			<ExpenseItem
+				key={expense.id}
+				title={expense.title}
+				amount={expense.amount}
+				date={expense.date}
+			/>
+		)) }
+		
+		return (
+			<Card className="expenses">
 			<ExpensesFilter
 				selected={filteredYear}
 				onChangingFilter={filterChangeHandler}
-			/>
-
-			{filteredExpenses.map((expense) => (
-				<ExpenseItem
-					key={expense.id}
-					title={expense.title}
-					amount={expense.amount}
-					date={expense.date}
 				/>
-			))}
+			{expenseContent}
+			{/* {filteredExpenses.length === 0 && <p>No expenses found.</p>} */}
+
+			{/* {filteredExpenses.length > 0 && filteredExpenses.map((expense) => (
+				<ExpenseItem
+				key={expense.id}
+				title={expense.title}
+				amount={expense.amount}
+				date={expense.date}
+				//outputting conditional content - to render the content conditionally. using && operator (if the condition before && operator is true, conditon after && operator will get render).
+				/>
+			)) } */}
 		</Card>
 	);
-};
+}
+
 
 export default Expenses;
