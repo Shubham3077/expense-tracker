@@ -1,12 +1,14 @@
 import { useState } from "react";
-import ExpenseItem from "../Expenses/ExpenseItem";
 import "./Expenses.css";
 import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
+import ExpensesList from "./ExpensesList";
+import ExpenseChart from "./ExpensesChart";
 
 const Expenses = (props) => {
+	let date = new Date();
 	const [filteredYear, setFilteredYear] =
-		useState("2022");
+		useState(date.getFullYear().toString());
 
 	const filterChangeHandler = (selectedYear) => {
 		setFilteredYear(selectedYear);
@@ -21,27 +23,17 @@ const Expenses = (props) => {
 		}
 	);
 
-	let expenseContent = <p>No expense found.</p> //making variables for conditional content and pointing only at variable name dynamically.
-	if (expenseContent > 0){
-		expenseContent = filteredExpenses.map((expense) => (
-			<ExpenseItem
-				key={expense.id}
-				title={expense.title}
-				amount={expense.amount}
-				date={expense.date}
-			/>
-		)) }
-		
-		return (
-			<Card className="expenses">
+	return (
+		<Card className="expenses">
 			<ExpensesFilter
 				selected={filteredYear}
 				onChangingFilter={filterChangeHandler}
-				/>
-			{expenseContent}
-			{/* {filteredExpenses.length === 0 && <p>No expenses found.</p>} */}
+			/>
+			<ExpenseChart expenses={filteredExpenses} />
+			<ExpensesList items={filteredExpenses} />
+			{/* {filteredExpenses.length === 0 && <p>No expenses found.</p>} 
 
-			{/* {filteredExpenses.length > 0 && filteredExpenses.map((expense) => (
+			{filteredExpenses.length > 0 && filteredExpenses.map((expense) => (
 				<ExpenseItem
 				key={expense.id}
 				title={expense.title}
@@ -52,7 +44,6 @@ const Expenses = (props) => {
 			)) } */}
 		</Card>
 	);
-}
-
+};
 
 export default Expenses;

@@ -31,24 +31,26 @@ const DUMMY_EXPENSES = [
 		amount: 450,
 		date: new Date(2022, 5, 12),
 	},
-]
+];
 
 function App() {
-	
-	const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+	const [expenses, setExpenses] = useState(
+		DUMMY_EXPENSES
+	);
 
 	const addExpenseHandler = (expense) => {
-		// console.log("i am in app.js");
-		// expenses.push(expense);
-		setExpenses((prevExpenses) => {
-			return [ expense, ...prevExpenses ] 
-		});
-	}
+		setExpenses((prevExpenses) => [
+			expense,
+			...prevExpenses,
+		]);
+	};
 
 	return (
 		<div className="App">
-			<NewExpense onAddExpense = {addExpenseHandler}/>
-			<Expenses item={expenses}/>
+			<NewExpense
+				onAddExpense={addExpenseHandler}
+			/>
+			<Expenses item={expenses} />
 		</div>
 	);
 }

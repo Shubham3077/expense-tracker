@@ -35,15 +35,14 @@ const ExpenseForm = (props) => {
 
 		const expenseData = {
 			title: enteredTitle,
-			amount: enteredAmount,
+			amount: +enteredAmount,
 			date: new Date(enteredDate),
 		};
-
 		props.onSavingExpenseData(expenseData);
 
-        setEnteredTitle(''); //two way binding means for input we can not only listen to changes, but we can also pass new value to input, using value attribute in input tag.
-        setEnteredAmount('');
-        setEnteredDate('');
+		setEnteredTitle(""); //two way binding means for input we can not only listen to changes, but we can also pass new value to input, using value attribute in input tag.
+		setEnteredAmount("");
+		setEnteredDate("");
 	};
 
 	return (
@@ -54,7 +53,7 @@ const ExpenseForm = (props) => {
 					<input
 						className="input"
 						type="text"
-                        value={enteredTitle}
+						value={enteredTitle}
 						onChange={titleChangeHandler}
 					/>
 				</div>
@@ -66,7 +65,7 @@ const ExpenseForm = (props) => {
 						type="number"
 						min="0.1"
 						step="0.1"
-                        value={enteredAmount}
+						value={enteredAmount}
 						onChange={amountChangeHandler}
 					/>
 				</div>
@@ -78,17 +77,20 @@ const ExpenseForm = (props) => {
 						type="date"
 						min="2020-01-01"
 						max="2024-12-31"
-                        value={enteredDate}
+						value={enteredDate}
 						onChange={dateChangeHandler}
 					/>
 				</div>
 			</div>
 
 			<div className="new-expense__actions ">
-				<button type="submit">
-					{" "}
-					Add Expense
+				<button
+					type="button"
+					onClick={props.onEndEditingHandler}
+				>
+					Cancel
 				</button>
+				<button type="submit">Add Expense</button>
 			</div>
 		</form>
 	);
